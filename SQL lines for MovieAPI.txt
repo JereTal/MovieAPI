@@ -1,0 +1,13 @@
+CREATE TABLE Movie_Genre (Genre_ID INT PRIMARY KEY, Genre_name VARCHAR(255) NOT NULL, Genre_desc TEXT);
+
+CREATE TABLE Movie_Review (Review_ID INT PRIMARY KEY, Username VARCHAR(255), Stars INT CHECK (Stars BETWEEN 1 AND 5), Review_Text TEXT);
+
+CREATE TABLE Movie (Movie_ID INT PRIMARY KEY, Movie_Name VARCHAR(255) NOT NULL, Movie_release_Year YEAR NOT NULL,Movie_genre INT, 
+Movie_review INT, FOREIGN KEY (Movie_genre) REFERENCES Movie_Genre(Genre_ID), FOREIGN KEY (Movie_review) REFERENCES Movie_Review(Review_ID));
+
+CREATE TABLE User (User_ID INT PRIMARY KEY, Username VARCHAR(255) NOT NULL UNIQUE, Password VARCHAR(255) NOT NULL, Year_of_birth YEAR NOT NULL);
+
+CREATE TABLE Favorite_Movie (Favorite_ID INT PRIMARY KEY, Movie_ID INT NOT NULL, FOREIGN KEY (Movie_ID) REFERENCES Movie(Movie_ID));
+
+CREATE TABLE Movie_API (Main_ID INT PRIMARY KEY, Movie INT NOT NULL, User INT NOT NULL,
+FOREIGN KEY (Movie) REFERENCES Movie(Movie_ID), FOREIGN KEY (User) REFERENCES User(User_ID));
